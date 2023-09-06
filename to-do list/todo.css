@@ -1,0 +1,32 @@
+body {
+    font-family: Arial;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 200px 150px 100px;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.js-todo {
+    margin-top: 10px;
+}
+
+.name-input,
+.date-input {
+    font-size: 15px;
+    padding: 6px;
+}
+
+.add {
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.del {
+    background-color: red;
+    padding: 10px 29px;
+}
