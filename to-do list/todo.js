@@ -1,11 +1,12 @@
-const todolist = [
-    {
-        name: 'Shopping',
-        date: '2023-12-22'
-    }, {
-        name: 'Check Mails',
-        date: '2023-12-22'
-    }];
+const todolist =
+    JSON.parse((localStorage.getItem('list items'))) || [
+        {
+            name: 'Shopping',
+            date: '2023-12-22'
+        }, {
+            name: 'Check Mails',
+            date: '2023-12-22'
+        }];
 
 render();
 
@@ -38,6 +39,20 @@ function addTodo() {
     });
     //console.log(todolist);
 
+    localStorage.setItem('list items', JSON.stringify(todolist));
+
+
     inputElement.value = '';
+    dateElement.value = '';
     render();
+}
+
+const myList = document.querySelector('.list');
+const showMyList = document.querySelector('.show-list');
+const nameInput = myList['name'];
+const dateInput = myList['date'];
+
+
+const addListElement = (text, date) => {
+
 }
