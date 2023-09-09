@@ -48,10 +48,11 @@ async function checkWeather(city) {
     }
 }
 
-searchBtn.addEventListener('click', () => {
-    checkWeather(searchBox.value);
-})
+// searchBtn.addEventListener('click', () => {
+//     const el = searchBox.value
+//     checkWeather(el);
+// })
+//used the funtion directly using onclick()
 
-console.log('KKK');
 
 // checkWeather();
