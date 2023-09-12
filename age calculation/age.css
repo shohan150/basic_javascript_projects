@@ -25,3 +25,63 @@ body {
 .calculator h1 span {
     color: #ffff76;
 }
+
+.input-box {
+    margin: 40px 0;
+    padding: 35px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+.input-box input {
+    flex: 1;
+    margin-right: 20px;
+    padding: 14px;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.submit {
+    background-color: #ffff76;
+    border: 0;
+    outline: 0;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+}
+
+.input-box input::-webkit-calendar-picker-indicator {
+    /* style the calendar picker icon for date input fields in some webkit-based browsers (like Chrome). By writing these lines of code we we make whole input field clickable meaning anywhere we click, the calender is shown to pick a date. before we had to click on the celender icon to see the calender and write date manually. but now calender will be shown with any click on the input field.*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    position: absolute;
+    background-position: calc(100% - 10px);
+    background-size: 30px;
+    cursor: pointer;
+    height: auto;
+
+    /* top: 0;, bottom: 0;, left: 0;, right: 0; These lines set the top, bottom, left, and right properties to 0. This effectively positions the calendar picker indicator to cover the entire area of the input field, making it invisible and preventing interaction with it. This is a common technique to hide the default browser styling for this icon.
+
+width: auto;height:auto: allowing it to adjust its width based on its content. 
+
+position: absolute;: This line sets the position of the calendar picker indicator to "absolute." Used to precisely position elements within a parent container. Ensures the icon is correctly positioned within the input field.
+
+background-position: calc(100% - 10px);: This line sets the background position of the icon. It uses the calc() function to calculate the position. It positions the icon at 100% of the container's width minus 10 pixels from the right edge. This can be used to adjust the horizontal placement of the icon within the input field.
+
+background-size: 30px;: This line sets the size of the background image (the calendar picker icon) to 30 pixels. You can adjust this value to control the size of the icon. */
+
+}
+
+#result {
+    font-size: 20px;
+}
