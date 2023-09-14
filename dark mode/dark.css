@@ -1,0 +1,19 @@
+img {
+    width: 120px;
+    padding: 25px;
+}
+
+div {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color {
+    background-color: black;
+}
+
+.colors {
+    background-color: white !important;
+}

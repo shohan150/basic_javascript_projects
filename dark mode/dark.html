@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try our Dark Mode</title>
+    <link rel="stylesheet" href="dark.css">
+</head>
+
+<body>
+    <div><img src="sun.png" alt="" id="Mode" class="color"></div>
+
+
+    <script>
+
+        let mode = document.getElementById('Mode');
+        mode.onclick = function () {
+            document.body.classList.toggle('color');
+            if (document.body.classList.contains('color')) {
+                mode.src = 'moon.png';
+                mode.style.backgroundColor = 'white';
+            } else {
+                mode.src = 'sun.png';
+                mode.style.backgroundColor = 'black';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
