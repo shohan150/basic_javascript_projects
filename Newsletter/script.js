@@ -1,0 +1,1 @@
+//google sheets add scripts not working. So, no link extablidhe between them.
