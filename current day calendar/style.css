@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #1d0000, #20205b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar {
+    width: 300px;
+    height: 250px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.left,
+.right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-direction: column;
+}
+
+.right {
+    background: #f4351e;
+    color: white;
+    width: 42%;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.left {
+    width: 58%;
+}
+
+#date {
+    font-size: 70px;
+}
+
+#month {
+    font-size: 29px;
+}

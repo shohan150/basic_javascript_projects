@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(#f44336, #730228);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selector {
+    width: 350px;
+}
+
+#select-field {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+#select-field img {
+    width: 12px;
+    transition-duration: 0.4s;
+}
+
+#list {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    overflow: hidden;
+    padding-left: 0;
+}
+
+.options {
+    width: 100%;
+    padding: 15px;
+    list-style: none;
+    cursor: pointer;
+    /* box-sizing: border-box; */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.options img {
+    width: 25px;
+    margin-left: 20px;
+}
+
+.options:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.hide {
+    visibility: hidden;
+    /* instead of class .hide, try using id #hide. it wil only hide the background, not the whole list. because Id's are used to style particular/single elements. in other words, design the elements at singular level. so, applying id visibility hidden, only hides the ul; means the background but does noit hide the li items. so, apply class .hide to hide everything under the ul.  */
+}
+
+.rotate-arrow {
+    transform: rotate(180deg);
+}
