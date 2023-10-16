@@ -1,0 +1,83 @@
+* {
+   margin: 0;
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   box-sizing: border-box;
+}
+
+body {
+   min-height: 100vh;
+   background: linear-gradient(-45deg, aquamarine, aqua);
+   color: white;
+}
+
+h1 {
+   text-align: center;
+   margin: 100px auto 20px;
+   font-weight: 600;
+}
+
+form {
+   width: 90%;
+   height: 60px;
+   max-width: 600px;
+   margin: auto;
+   background-color: white;
+   display: flex;
+   align-items: center;
+   color: #000;
+}
+
+form input {
+   flex: 1;
+   height: 100%;
+   border: 0;
+   outline: 0;
+   background-color: transparent;
+   color: #000;
+   font-size: 18px;
+   padding: 0 30px;
+}
+
+form button {
+   padding: 0 40px;
+   height: 100%;
+   background-color: #4b1d63;
+   color: white;
+   font-size: 18px;
+   border: 0;
+   outline: 0;
+}
+
+::placeholder {
+   color: #333;
+}
+
+#show-more-btn {
+   padding: 10px 14px;
+   background-color: #4b1d63;
+   color: white;
+   font-size: 12px;
+   border: 0;
+   outline: 0;
+   margin: 20px auto 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   display: none;
+   cursor: pointer;
+}
+
+#search-result {
+   width: 80%;
+   margin: 100px auto 50px;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   grid-gap: 40px;
+}
+
+#search-result img {
+   width: 100%;
+   height: 230px;
+   object-fit: cover;
+   border-radius: 5px;
+}
