@@ -1,5 +1,5 @@
 const todolist =
-    JSON.parse((localStorage.getItem('list items'))) || [
+    JSON.parse((localStorage.getItem('list items'))) || [   //not sure why OR operator is used here instead of AND operator. 
         {
             name: 'Shopping',
             date: '2023-12-22'
@@ -18,8 +18,8 @@ function render() {
         //const { name } = todoObj;
         //const date = todoObj.date;
         //const { date } = todoObj;
-        const { name, date } = todoObj
-        const html = `<div>${name}</div> <div>${date}</div> <div> <button class="del" onclick='todolist.splice(${i},1);render();'> Delete</button></div>`;
+        const { name, date } = todoObj;
+        const html = `<div>${name}</div> <div>${date}</div> <div> <button class="del" onclick='  todolist.splice(${i}, 1); del()'> Delete</button></div>`;
         todolistHTML += html;
     }
 
@@ -47,12 +47,8 @@ function addTodo() {
     render();
 }
 
-const myList = document.querySelector('.list');
-const showMyList = document.querySelector('.show-list');
-const nameInput = myList['name'];
-const dateInput = myList['date'];
-
-
-const addListElement = (text, date) => {
-
+function del() {
+    render();
+    localStorage.setItem('list items', JSON.stringify(todolist));
 }
+

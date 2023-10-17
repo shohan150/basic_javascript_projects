@@ -6,11 +6,17 @@ const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather img");
 
+// In synchronous operations, each operation is executed one after the other in a blocking manner. 
+
+// This means that the program will wait for each operation to complete before moving on to the next one. Synchronous operations are executed in the order they are called. The program proceeds sequentially from one operation to the next.
+
+// Asynchronous operations allow multiple operations to be started and run concurrently. Instead of waiting for one operation to complete before moving to the next, the program can continue executing other tasks. Asynchronous operations are typically managed using callbacks, promises, or async/await constructs. A callback function is executed when the asynchronous operation completes.
+
 async function checkWeather(city) {
     const responce = await fetch(apiUrl + city + `&appid=${apiKey}`);
     // let captain = 'Jean-luc'
-    // console.log('Paging ' + captain + ' to report to the bridge.')
-    // console.log(`Paging ${captain} to report to the bridge.`)
+    // console.log('Paging ' + captain + ' to report to the bridge.') uses quotation mark
+    // console.log(`Paging ${captain} to report to the bridge.`)  uses backtick
 
     var data = await responce.json();
     console.log(data);
@@ -43,7 +49,7 @@ async function checkWeather(city) {
         }
 
         document.querySelector('.weather').style.display = "block";
-
+        document.querySelector('.error').style.display = "none";
 
     }
 }
