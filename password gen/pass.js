@@ -22,6 +22,6 @@ function createPassword() {
 }
 
 function copyPassword() {
-    password.select(); // Select the text in the input element with the id "password"
-    document.execCommand('copy'); // Execute the 'copy' command to copy the selected text to the clipboard
+    password.select(); // Select the text in the input element with the id "password". The select() method is a built-in method for input elements. When called, it selects the text inside the input element, making it ready for copying.
+    document.execCommand('copy'); // copies the selected text to the clipboard. In this case, it copies the text that was previously selected using the select() method.
 }

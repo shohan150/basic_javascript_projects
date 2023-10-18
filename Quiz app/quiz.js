@@ -1,3 +1,9 @@
+// questions: An array of question objects.
+// ques: The text of the question.
+// ans: An array of answer objects for each question.
+// text: The text of the answer.
+// correct: A Boolean value ('true' or 'false') indicating whether the answer is correct.
+
 const questions = [
     {
         ques: 'which is the larger animal?',
@@ -57,12 +63,13 @@ function showQuestions() {
 
         if (answer.correct) {
             button.dataset.correct = answer.correct;
+            //The dataset object is used to store custom data attributes within HTML elements. This line of code assigns a custom data attribute named correct to an HTML element represented by the button variable. 
         }
         button.addEventListener('click', selectAnswer);
         //In JavaScript event handling, the e (or event) parameter is automatically provided by the event system when an event occurs and the event listener is invoked. You don't explicitly declare e when attaching the event listener; it's automatically passed to the event listener function when the event happens.
     });
 
-    // currentQuestion.ans.forEach(answer => { ... }): This code uses a forEach loop to iterate through an array of answer objects. For each entry (answer object) in the array, the code inside the curly braces is executed.
+    // currentQuestion.ans.forEach(answer => { ... }): uses a forEach loop to iterate through an array of answer objects. For each entry (answer object) in the array, the code inside the curly braces is executed.
     // const button = document.createElement('button');: Inside the loop, it creates a new HTML button element using the document.createElement method.
     // button.innerHTML = answer.text;: It sets the inner HTML of the button to the text of the current answer. 
     // button.classList.add('btn');: It adds a CSS class "btn" to the button element.
@@ -81,9 +88,9 @@ function resetState() {
 
 function selectAnswer(e) {
     const selectedBtn = e.target;
-    // Declare a constant named selectedBin and access e.target within the selectAnswer function to get a reference to the specific button element that was clicked. 
+    // Declare a constant named selectedBtn and access e.target. 
 
-    // The e.target property is a commonly used property in JavaScript event handling, and it refers to the DOM element that triggered an event. It represents the specific element on which the event occurred. Here's a more detailed explanation:
+    // e: is typically a shorthand for an event object. It represents the event that occurred, such as a click, mouseover, or keypress event. The event object contains information about the event itself, like the type of event, the target element that triggered the event(button, input field etc), and additional event-specific properties. e.target: is a property of the event object (e) and represents the specific DOM element that triggered the event like the button, input field element mentioned just now. It refers to the element on which the event occurred. If you're handling a click event, e.target would refer to the specific button or element that was clicked.
 
     // Event Handling Context: When you attach an event listener to an element (e.g., a button, a div, an input field), you specify a function to be executed when a particular event (e.g., a click, a keypress) happens on that element.
 
@@ -94,7 +101,7 @@ function selectAnswer(e) {
     const isCorrect = selectedBtn.dataset.correct === 'true';
     //selectedBtn.dataset.correct is used to access the value of a custom data attribute named "correct" associated with the selectedBtn element.
 
-    //selectedBtn: This is a reference to the button element that was clicked, which is stored in the selectedBtn variable. This element is the target of the click event. .dataset: The dataset property is an object that allows you to access all the custom data attributes (data-* attributes) of an HTML element. It provides a way to read and write data attributes using JavaScript. .correct: This is the specific data attribute you are accessing. 
+    //selectedBtn: This is a reference to the button element that was clicked, which is stored in the selectedBtn variable. This element is the target of the click event. The dataset property is an object that allows you to access all the custom data attributes of an HTML element. It provides a way to read and write data attributes using JavaScript. .correct is the specific data attribute you are accessing. 
 
     if (isCorrect) {
         selectedBtn.classList.add('correct');
