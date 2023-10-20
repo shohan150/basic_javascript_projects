@@ -22,7 +22,7 @@ body {
     bottom: 30px;
     right: 30px;
     display: flex;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     flex-direction: column;
     overflow: hidden;
     padding: 20px;
@@ -39,8 +39,8 @@ body {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    position: relative;
-    transform: translateX(100%);
+    /* position: relative; */
+    transform: translateX(0%);
     animation: goleft 0.5s linear forwards;
 }
 

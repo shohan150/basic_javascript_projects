@@ -1,4 +1,4 @@
-let imgBox = document.getElementById('imgBox');
+// let imgBox = document.getElementById('imgBox');
 let qrImg = document.getElementById('qrimg');
 let qrText = document.getElementById('qr_text');
 
