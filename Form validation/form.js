@@ -12,6 +12,12 @@ function validateName() {
         return false;
     }
     if (!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)) {
+        //This regular expression checks if the name string consists of two words separated by a single space. 
+        // ^: Asserts the start of the string.
+        // [A - Za - z] *: Matches zero or more uppercase or lowercase letters(the * means zero or more occurrences). If * is not used. a single letter will be allowed by sides of the space.
+        //\s{ 1 }: Matches a single space character. 1 indicates that a single space is allowed.
+        // [A - Za - z] *: Matches zero or more uppercase or lowercase letters again.
+        //$: Asserts the end of the string.
         nameError.innerHTML = "Write Full Name";
         return false;
     }
@@ -43,7 +49,7 @@ function validateEmail() {
         emailError.innerHTML = 'Email is required';
         return false;
     }
-    if (!email.match(/^[A-Za-z]\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+    if (!email.match(/^[A-Za-z0-9.-_]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
         emailError.innerHTML = "Email invalid";
         return false;
     }
