@@ -1,3 +1,4 @@
+//still not sure how things are happening here.
 var imgBox = document.querySelector('.img-box');
 var imgWrap = document.querySelector('.img-wrap');
 var originalImg = document.getElementById('original-img');
