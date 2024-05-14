@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="create">create now</button>
+    <div id="element-container"></div>
+    <!-- 
+    i guess the answer is, create element diye create korle protita er jonno alada reference toiri kore. tai id same hle o, reference dhore rakhe internally, r se hisebe sob gulor id same hle o individually chinte pare. -->
+
+    <script>
+      const button = document.getElementById("create");
+      const container = document.getElementById("element-container"); // Assuming an existing container element
+
+      button.addEventListener("click", function handleClick() {
+        // Create the input, button, and p elements every time the button is clicked
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter text here";
+
+        const innerButton = document.createElement("button");
+        innerButton.textContent = "Show Value";
+
+        const paragraph = document.createElement("p");
+
+        container.appendChild(input);
+        container.appendChild(innerButton);
+        container.appendChild(paragraph);
+
+        // Update the paragraph content only when the inner button is clicked
+        innerButton.addEventListener(
+          "click",
+          function handleInnerButtonClick() {
+            paragraph.textContent = input.value;
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
