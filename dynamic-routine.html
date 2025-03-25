@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class Routine</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+
+      #subjects {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .subject {
+        width: 100px;
+        padding: 10px;
+        background-color: #007bff;
+        border: 1px solid #0056b3;
+        color: white;
+        cursor: grab;
+        text-align: center;
+        border-radius: 5px;
+        transition: transform 0.2s;
+      }
+
+      .subject:hover {
+        transform: scale(1.04);
+      }
+
+      #form-container {
+        margin-bottom: 20px;
+      }
+
+      #schedule-container {
+        overflow-x: auto;
+      }
+
+      #schedule {
+        display: grid;
+        gap: 10px;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+      }
+
+      .header,
+      .day-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #0056b3;
+        border-radius: 5px;
+        min-width: 100px;
+        min-height: 40px;
+      }
+
+      .period {
+        width: 100%;
+        height: 100px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border-radius: 5px;
+        transition: background-color 0.2s, border-color 0.2s;
+        min-width: 100px;
+      }
+
+      .period:hover {
+        background-color: #f0f0f0;
+        border-color: #007bff;
+      }
+
+      .period .delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .period:hover .delete {
+        display: flex;
+      }
+
+      .period.drag-over {
+        border-color: #007bff;
+        background-color: #e0e0e0;
+      }
+
+      #buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      @media (max-width: 768px) {
+        #schedule {
+          grid-template-columns: 100px repeat(auto-fit, minmax(100px, 1fr));
+        }
+
+        .period,
+        .header,
+        .day-label {
+          min-width: 100px;
+        }
+      }
+
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+
+        #schedule-container,
+        #schedule-container * {
+          visibility: visible;
+        }
+
+        #schedule-container {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+        }
+
+        .period,
+        .header,
+        .day-label {
+          min-width: 65px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="form-container">
+      <form id="period-form">
+        <label for="num-periods">Number of periods per day:</label>
+        <input
+          type="number"
+          id="num-periods"
+          name="num-periods"
+          min="1"
+          max="10"
+          required
+        />
+        <button type="submit">Create Table</button>
+      </form>
+    </div>
+
+    <div id="subjects">
+      <div class="subject" draggable="true">Math</div>
+      <div class="subject" draggable="true">Science</div>
+      <div class="subject" draggable="true">History</div>
+      <div class="subject" draggable="true">Art</div>
+      <div class="subject" draggable="true">PE</div>
+      <div class="subject" draggable="true">Music</div>
+      <div class="subject" draggable="true">Geography</div>
+      <div class="subject" draggable="true">English</div>
+    </div>
+
+    <div id="schedule-container">
+      <div id="schedule" style="grid-template-columns: 100px repeat(7, 1fr)">
+        <div class="header"></div>
+        <div class="header">1 Period</div>
+        <div class="header">2 Period</div>
+        <div class="header">3 Period</div>
+        <div class="header">4 Period</div>
+        <div class="header">5 Period</div>
+        <div class="header">6 Period</div>
+        <div class="header">7 Period</div>
+        <div class="day-label">Saturday</div>
+        <div class="period" id="sat-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sat-p7">
+          <button class="delete">X</button>
+        </div>
+        <div class="day-label">Sunday</div>
+        <div class="period" id="sun-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="sun-p7">
+          <button class="delete">X</button>
+        </div>
+        <div class="day-label">Monday</div>
+        <div class="period" id="mon-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="mon-p7">
+          <button class="delete">X</button>
+        </div>
+        <div class="day-label">Tuesday</div>
+        <div class="period" id="tue-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="tue-p7">
+          <button class="delete">X</button>
+        </div>
+        <div class="day-label">Wednesday</div>
+        <div class="period" id="wed-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="wed-p7">
+          <button class="delete">X</button>
+        </div>
+        <div class="day-label">Thursday</div>
+        <div class="period" id="thu-p1">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p2">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p3">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p4">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p5">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p6">
+          <button class="delete">X</button>
+        </div>
+        <div class="period" id="thu-p7">
+          <button class="delete">X</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="buttons">
+      <button id="save-button">Save</button>
+      <button id="print-button">Print</button>
+    </div>
+
+    <script>
+      //DOM purota load hle tarpor execute koro.
+      document.addEventListener("DOMContentLoaded", () => {
+        const subjects = document.querySelectorAll(".subject");
+        const periods = document.querySelectorAll(".period");
+        const periodForm = document.getElementById("period-form");
+        const scheduleContainer = document.getElementById("schedule");
+        const saveButton = document.getElementById("save-button");
+        const printButton = document.getElementById("print-button");
+
+        periodForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const numPeriods = document.getElementById("num-periods").value;
+          createSchedule(numPeriods);
+        });
+
+        saveButton.addEventListener("click", saveRoutine);
+        printButton.addEventListener("click", () => window.print());
+
+        function createSchedule(numPeriods) {
+          scheduleContainer.innerHTML = ""; // Clear existing schedule
+
+          const days = [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+          ];
+          scheduleContainer.style.gridTemplateColumns = `100px repeat(${numPeriods}, 1fr)`;
+
+          const headerRow = document.createElement("div");
+          headerRow.classList.add("header");
+          scheduleContainer.appendChild(headerRow); // Empty cell at the top-left
+
+          //period sequence at the top
+          for (let i = 1; i <= numPeriods; i++) {
+            const header = document.createElement("div");
+            header.classList.add("header");
+            header.innerText = `${i} Period`;
+            scheduleContainer.appendChild(header);
+          }
+
+          //row for each achool day.
+          days.forEach((day) => {
+            //day name at first
+            const dayLabel = document.createElement("div");
+            dayLabel.classList.add("day-label");
+            dayLabel.innerText = day;
+            scheduleContainer.appendChild(dayLabel);
+
+            //then for each day create empty period field. then add the period field to scheduleContainer
+            for (let i = 1; i <= numPeriods; i++) {
+              const period = document.createElement("div");
+              period.classList.add("period");
+              //dynamic id for each period field
+              period.id = `${day.toLowerCase().slice(0, 3)}-p${i}`;
+              //delete button for each field.
+              const deleteButton = document.createElement("button");
+              deleteButton.className = "delete";
+              deleteButton.innerText = "X";
+              deleteButton.addEventListener("click", deleteContent);
+              //add the delete button to period
+              period.appendChild(deleteButton);
+              //add eventListener to each period field.
+              period.addEventListener("dragover", dragOver);
+              period.addEventListener("dragleave", dragLeave);
+              period.addEventListener("drop", drop);
+              //finally add each period field to the scheduleContainer
+              scheduleContainer.appendChild(period);
+            }
+          });
+        }
+
+        subjects.forEach((subject) => {
+          subject.addEventListener("dragstart", dragStart);
+        });
+
+        //add eventListern to the existing dummy period fields. So, that the initail routine can also be editable.
+        periods.forEach((period) => {
+          period.addEventListener("dragover", dragOver);
+          period.addEventListener("dragleave", dragLeave);
+          period.addEventListener("drop", drop);
+        });
+
+        //uses the dataTransfer property of the event object (e.dataTransfer). This object allows to set and retrieve data associated with the drag operation.
+
+        // calls the setData method on the dataTransfer object. It takes two arguments: Data Type: The first argument specifies the type of data being transferred. In this case, it sets "text/plain" indicating plain text data. Data: The second argument is the actual data to transfer. Here, it uses e.target.innerText to get the text content of the element being dragged (e.target refers to the element that triggered the drag event).
+
+        function dragStart(e) {
+          e.dataTransfer.setData("text/plain", e.target.innerText);
+        }
+
+        //drafOver and dragLeave combinely, gives a hover like effect. That when the content is put over, the border becomes blue.
+
+        // the dragover event triggered when a draggable element (subject) is dragged over a potential drop target (period).
+        // it calls e.preventDefault(). This prevents the browser's default behavior for the dragover event, which might involve actions like following links or scrolling.
+        // It uses e.currentTarget.classList.add("drag-over"). e.currentTarget refers to the element that the event listener is attached to (in this case, the period element being hovered over). classList.add("drag-over") adds a CSS class named "drag-over" to the element.
+        function dragOver(e) {
+          e.preventDefault();
+          e.currentTarget.classList.add("drag-over");
+        }
+
+        //remove the classsList if the dragable element is removed.
+
+        function dragLeave(e) {
+          e.currentTarget.classList.remove("drag-over");
+        }
+
+        //represents the drop event triggered when a draggable element (subject) is dropped on a target element (period).
+        function drop(e) {
+          //prevent the browser's default behavior for the drop event.
+          e.preventDefault();
+          //remove the drag-over class if the element is dropped.
+          e.currentTarget.classList.remove("drag-over");
+          //retrieves the transferred data
+          const text = e.dataTransfer.getData("text/plain");
+          //create e new div and place the div on the period block.
+          const clonedSubject = document.createElement("div");
+          clonedSubject.className = "subject";
+          clonedSubject.innerText = text;
+          e.currentTarget.innerHTML = ""; // Clear existing content
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete";
+          deleteButton.innerText = "X";
+          deleteButton.addEventListener("click", deleteContent);
+          e.currentTarget.appendChild(clonedSubject);
+          e.currentTarget.appendChild(deleteButton);
+        }
+
+        function deleteContent(e) {
+          //Preventing Bubbling: calls e.stopPropagation(). This prevents the click event from bubbling up to any parent elements.avoid accidentally triggering other click events on parent elements.
+          e.stopPropagation();
+          //retrieves the parent element of the clicked delete button using e.currentTarget.parentElement. This gives you the period element
+          const periodDiv = e.currentTarget.parentElement;
+          //sets the innerHTML property of the period element (periodDiv) to a string containing only a new delete button with class "delete" and the text "X". This essentially replaces the entire content of the period with just the delete button.
+          periodDiv.innerHTML = '<button class="delete">X</button>';
+          //finds the newly created delete button within the period element using querySelector(".delete"). While seemingly redundant, this ensures that the newly created delete button also has a click event listener attached to call deleteContent when clicked. This is necessary because the previous event listener was attached to the original delete button that was just removed. then, if you drag another subject, eventListener will be atttached again. So, it's okay even if I don't atatch eventListener here. Adding this is just being on the safe side.
+          // periodDiv
+          //   .querySelector(".delete")
+          //   .addEventListener("click", deleteContent);
+        }
+        function saveRoutine() {
+          //create an empty object
+          const routineData = {};
+          const days = [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+          ];
+
+          days.forEach((day) => {
+            //Inside the loop, for each day it creates an empty array within routineData using the current day as the key. This array will store the subjects assigned to that day.
+
+            //The code uses square bracket notation ([]) to access properties of objects. In this case, it's accessing the routineData object and trying to set a property using the current day (day) as the key.By assigning an empty array ([]) to routineData[day], it's essentially creating a new property within the routineData object. The key of this new property is the current day ("Monday", "Tuesday", etc.), and its value is an empty array ([]).
+
+            //You cannot use routineData.day = []; in this context because dot notation has limitations when used as a property key in JavaScript object creation or modification. In this scenario, because you're dynamically creating property names based on day names, dot notation wouldn't work due to its limitations. Bracket notation provides the necessary flexibility to use any string value (including variables) as a property key, making it the appropriate choice for this situation.
+
+            // Dot Notation Limitations:
+            // Valid Property Names: Dot notation can only be used with property names that are valid JavaScript identifiers. This means they can only contain letters, numbers, and underscores (_), and they cannot start with a number.
+            // Reserved Keywords: Additionally, dot notation cannot be used with reserved keywords in JavaScript, like function, var, or const.
+
+            // Why Bracket Notation is Required:
+            // Dynamic Keys: In the code routineData[day] = [];, the day variable holds the current day name ("Monday", "Tuesday", etc.). These day names are not guaranteed to be valid JavaScript identifiers. For example, "Tuesday" has a capital letter in the middle, which wouldn't be allowed with dot notation.
+            // Flexibility: Bracket notation allows you to use any string or symbol (including variables) as a property key. This flexibility is essential when you don't know the exact property name beforehand, as is the case here where the day names come from a loop.
+
+            // Imagine day has the value "Tuesday". Here's what would happen with each notation:
+
+            // Dot Notation (Invalid):
+            // routineData.Tuesday = []; // This would cause a SyntaxError because "Tuesday" is not a valid identifier
+
+            // Bracket Notation (Valid):
+            // routineData["Tuesday"] = []; //This works correctly, using "Tuesday" as the key within square brackets
+
+            //just try using dot notation and see how the error occurs.
+
+            routineData[day] = [];
+
+            //It uses querySelectorAll to select all period elements (class="period") whose IDs start with the lowercase three-letter abbreviation of the current day followed by "-p" (e.g., "mon-p1", "tue-p2"). This effectively selects all periods for the current day.
+
+            const dayPeriods = scheduleContainer.querySelectorAll(
+              `.period[id^="${day.toLowerCase().slice(0, 3)}-p"]`
+            );
+
+            //It iterates through the selected dayPeriods using another forEach loop.
+
+            dayPeriods.forEach((period) => {
+              // Inside the inner loop, for each period: It tries to find an element with class "subject" within the current period using querySelector. If a subject element is found: It retrieves the inner text (subject name) of the found element and stores it in the subject variable. Otherwise, the subject variable remains null.
+              const subject = period.querySelector(".subject")
+                ? period.querySelector(".subject").innerText
+                : null;
+              // Finally, it pushes the retrieved subject value (or null if not found) into the corresponding day's subject array within routineData.
+              routineData[day].push(subject);
+            });
+          });
+          // After iterating through all days and periods, print the routineData object as a formatted JSON string
+
+          // JSON.stringify can take up to three arguments:
+
+          //Object to Convert: The first argument is the mandatory JavaScript object you want to convert to JSON.
+
+          // Replacer Function (Optional): The second argument is an optional function that can be used to customize how certain properties of the object are serialized (converted to JSON format). Here, it's set to null, indicating no replacement function is used.
+
+          // Indent (Optional): The third argument is an optional number that specifies the indentation level for the resulting JSON string. Here, it's set to 2, which will create a formatted JSON string with two spaces of indentation for each level, making it more readable for humans.
+
+          console.log(JSON.stringify(routineData, null, 2));
+        }
+      });
+    </script>
+  </body>
+</html>
